@@ -1,9 +1,23 @@
 import os
 import json
+import csv
 
 class DataIngestor:
     def __init__(self, csv_path: str):
         # TODO: Read csv from csv_path
+        self.data_rows = []
+        self.columns = {}
+        
+        with open(csv_path, "r") as csv_file:
+            reader = csv.reader(csv_file, delimiter=',')
+
+            header_row = next(reader)
+            for idx, column in enumerate(header_row):
+                self.columns[column.strip()] = idx
+
+            for row in reader:
+                self.data_rows.append(row)
+
 
         self.questions_best_is_min = [
             'Percent of adults aged 18 years and older who have an overweight classification',
@@ -19,3 +33,5 @@ class DataIngestor:
             'Percent of adults who achieve at least 300 minutes a week of moderate-intensity aerobic physical activity or 150 minutes a week of vigorous-intensity aerobic activity (or an equivalent combination)',
             'Percent of adults who engage in muscle-strengthening activities on 2 or more days a week',
         ]
+
+data_ing = DataIngestor('../nutrition_activity_obesity_usa_subset.csv')
