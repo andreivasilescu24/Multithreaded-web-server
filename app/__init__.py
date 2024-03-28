@@ -5,7 +5,7 @@ from threading import Lock
 
 lock = Lock()
 webserver = Flask(__name__)
-webserver.tasks_runner = ThreadPool(lock)
+webserver.tasks_runner = ThreadPool()
 
 # webserver.task_runner.start()
 
