@@ -106,7 +106,7 @@ class TestAPI(unittest.TestCase):
                 res = requests.post(f"http://127.0.0.1:5000/api/{endpoint}", json=req_data)
 
                 job_id = res.json()
-                # print(f'job-res is {job_id}')
+                print(f'job-res is {job_id}')
                 job_id = job_id["job_id"]
 
                 self.check_res_timeout(

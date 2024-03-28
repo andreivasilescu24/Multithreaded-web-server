@@ -43,7 +43,7 @@ def states_mean_request():
     # Get request data
     data = request.json
     print(f"Got request {data}")
-
+    
     # TODO
     # Register job. Don't wait for task to finish
     # Increment job_id counter

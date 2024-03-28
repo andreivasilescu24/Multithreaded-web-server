@@ -1,9 +1,11 @@
 from flask import Flask
 from app.data_ingestor import DataIngestor
 from app.task_runner import ThreadPool
+from threading import Lock
 
+lock = Lock()
 webserver = Flask(__name__)
-webserver.tasks_runner = ThreadPool()
+webserver.tasks_runner = ThreadPool(lock)
 
 # webserver.task_runner.start()
 
