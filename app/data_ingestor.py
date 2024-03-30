@@ -18,7 +18,6 @@ class DataIngestor:
             for row in reader:
                 self.data_rows.append(row)
 
-        print(self.columns)
 
         self.questions_best_is_min = [
             'Percent of adults aged 18 years and older who have an overweight classification',
