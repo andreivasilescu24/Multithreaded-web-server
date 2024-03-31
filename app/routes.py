@@ -59,14 +59,14 @@ def states_mean_request():
     # webserver.tasks_runner.add_task(webserver.job_counter)
     data = request.json
     print(f"Got request {data}")
-    job_id = webserver.tasks_runner.add_task(data['question'])
+    job_id = webserver.tasks_runner.add_task(data, 'states_mean')
     
     if job_id is None:
-        return jsonify({"status": "error", "reason": "Cannot add task, shutdown was requested"})
+        return jsonify({"job_id": -1, "reason": "shutting down"})
     
     webserver.tasks_runner.update_job_id()
     
-    return jsonify({"job_id_" + str(job_id) : job_id})
+    return jsonify({"job_id": job_id})
 
 @webserver.route('/api/state_mean', methods=['POST'])
 def state_mean_request():
