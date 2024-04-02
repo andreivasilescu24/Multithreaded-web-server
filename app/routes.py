@@ -30,7 +30,12 @@ def get_response(job_id):
 
     job_id_status = webserver.tasks_runner.check_job_id(int(job_id))
     if job_id_status is not None:
-        return jsonify({"status" : job_id_status})
+        if job_id_status == 'running':
+            return jsonify({"status" : job_id_status})
+        else:
+            with open(f'results/{job_id}.json', 'r') as result_file:
+                result = json.load(result_file)
+            return jsonify({"status": job_id_status, "data": result})
     else: 
         return jsonify({"status": "error", "reason" : "Invalid job_id"})
     # TODO

@@ -91,20 +91,19 @@ class DataIngestor:
         state_mean = self.state_mean(json_req)
         return {json_req['state'] : global_mean_val - state_mean[json_req['state']]}
     
-    # def mean_by_category(self, json_req):
-    #     question = json_req['question']
-    #     vals = self.table[self.table['Question'] == question]
-    #     grouped_vals = vals.groupby(['LocationDesc', 'StratificationCategory1', 'Stratification1'])['Stratification1'].mean()
+    def mean_by_category(self, json_req):
+        question = json_req['question']
+        vals = self.table[self.table['Question'] == question]
+        grouped_vals = vals.groupby(['LocationDesc', 'StratificationCategory1', 'Stratification1'])['Data_Value'].mean()
+        grouped_vals_dict_str = {str(key): value for key, value in grouped_vals.to_dict().items()}
+        return dict(sorted(grouped_vals_dict_str.items(), key = lambda pair: pair[0][0]))
 
-    #     # Convert the grouped DataFrame to a dictionary with tuples as keys
-    #     results_dict = {(row['LocationDesc'], row['StratificationCategory1'], row['Stratification1']): row['MeanValue'] for index, row in grouped_vals.iterrows()}
 
-    #     # Print the dictionary
-    #     print(results_dict)
-    #     # for group_name, group_data in vals:
-    #     #     print(f"Group: {group_name}")
-    #     #     print(group_data)
-    #     return None
-
-    # def state_mean_by_category(self, json_req):
-    #     pass
+    def state_mean_by_category(self, json_req):
+        question = json_req['question']
+        state = json_req['state']
+        vals = self.table[(self.table['Question'] == question) & (self.table['LocationDesc'] == state)]
+        grouped_vals = vals.groupby(['StratificationCategory1', 'Stratification1'])['Data_Value'].mean()
+        grouped_vals_dict_str = {str(key): value for key, value in grouped_vals.to_dict().items()}
+        sorted_grouped_vals = dict(sorted(grouped_vals_dict_str.items(), key = lambda pair: pair[0][0]))
+        return {state: sorted_grouped_vals}
