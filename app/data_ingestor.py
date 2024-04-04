@@ -7,18 +7,6 @@ import pandas as pd
 class DataIngestor:
     def __init__(self, csv_path: str):
         # TODO: Read csv from csv_path
-        # self.data_rows = []
-        # self.columns = {}
-        
-        # with open(csv_path, "r") as csv_file:
-        #     reader = csv.reader(csv_file, delimiter=',')
-
-        #     header_row = next(reader)
-        #     for idx, column in enumerate(header_row):
-        #         self.columns[column.strip()] = idx
-
-        #     for row in reader:
-        #         self.data_rows.append(row)
         self.table = pd.read_csv(csv_path)
 
         self.questions_best_is_min = [

@@ -2,25 +2,17 @@ from asyncio import Semaphore
 from queue import Queue
 from threading import Thread, Event, Lock
 
-from flask import jsonify
-
 import time
 import os
 import random
 import json
+from venv import logger
 
 
 class ThreadPool:
-    def __init__(self, data_ingestor):
-        # You must implement a ThreadPool of TaskRunners
-        # Your ThreadPool should check if an environment variable TP_NUM_OF_THREADS is defined
-        # If the env var is defined, that is the number of threads to be used by the thread pool
-        # Otherwise, you are to use what the hardware concurrency allows
-        # You are free to write your implementation as you see fit, but
-        # You must NOT:
-        #   * create more threads than the hardware concurrency allows
-        #   * recreate threads for each task
+    def __init__(self, data_ingestor, logger):
         self.data_ingestor = data_ingestor
+        self.logger = logger
         self.task_queue = Queue()
         self.job_status = {}
         self.job_json = {}
@@ -77,8 +69,8 @@ class ThreadPool:
     def shutdown(self):
         self.shutdown_event.set()
         for thread in self.my_threads:
-            # print(f'Shutting down thread {thread.tid}')
             thread.join()
+        self.logger.info('Server successfully shut down')
     
 
 class TaskRunner(Thread):

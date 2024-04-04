@@ -1,0 +1,5 @@
+2024-04-04 14:42:01 - INFO: Started webserver
+2024-04-04 14:42:17 - INFO: GET - http://localhost:5000/api/graceful_shutdown - Shutting down the server...
+2024-04-04 14:42:17 - INFO: Server successfully shut down
+2024-04-04 14:42:20 - ERROR: GET - http://localhost:5000/api/graceful_shutdown - Server shut down already requested
+2024-04-04 14:45:51 - INFO: Started webserver
