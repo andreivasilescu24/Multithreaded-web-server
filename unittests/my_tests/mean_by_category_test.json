@@ -1,0 +1,13 @@
+{
+    "('Arizona', 'Age (years)', '18 - 24')": 14.3, 
+    "('Indiana', 'Age (years)', '65 or older')": 20.1, 
+    "('Indiana', 'Education', 'Less than high school')": 28.0, 
+    "('Indiana', 'Gender', 'Female')": 24.7, 
+    "('Indiana', 'Race/Ethnicity', 'Other')": 31.0, 
+    "('Michigan', 'Age (years)', '25 - 34')": 38.7, 
+    "('Michigan', 'Gender', 'Male')": 33.1, 
+    "('Washington', 'Age (years)', '35 - 44')": 34.0, 
+    "('Washington', 'Gender', 'Female')": 36.3, 
+    "('Washington', 'Income', '$75,000 or greater')": 39.3, 
+    "('Washington', 'Race/Ethnicity', 'Asian')": 6.6
+}

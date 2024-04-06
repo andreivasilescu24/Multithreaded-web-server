@@ -1,12 +1,7 @@
-import os
-import json
-import csv
-from numpy import sort
 import pandas as pd
 
 class DataIngestor:
     def __init__(self, csv_path: str):
-        # TODO: Read csv from csv_path
         self.table = pd.read_csv(csv_path)
 
         self.questions_best_is_min = [

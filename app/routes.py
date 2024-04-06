@@ -11,28 +11,20 @@ import time
 @webserver.route('/api/post_endpoint', methods=['POST'])
 def post_endpoint():
     if request.method == 'POST':
-        # Assuming the request contains JSON data
         data = request.json
         webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
-        print(f"got data in post {data}")
 
-        # Process the received data
-        # For demonstration purposes, just echoing back the received data
         response = {"message": "Received data successfully", "data": data}
 
-        # Sending back a JSON response
         return jsonify(response)
     else:
-        # Method Not Allowed
         return jsonify({"error": "Method not allowed"}), 405
 
 @webserver.route('/api/get_results/<job_id>', methods=['GET'])
 def get_response(job_id):
-    print(f"JobID is {job_id}")
-
     job_id_status = webserver.tasks_runner.check_job_id(int(job_id))
     if job_id_status is not None:
-        webserver.logger.error(f"{request.method} - {request.url} Result for job {job_id} requested")
+        webserver.logger.info(f"{request.method} - {request.url} - Result for job {job_id} requested")
         if job_id_status == 'running':
             return jsonify({"status" : job_id_status})
         else:
@@ -50,10 +42,10 @@ def states_mean_request():
     job_id = webserver.tasks_runner.add_task(data, 'states_mean')
     
     if job_id is None:
-        webserver.logger.error(f"{request.method} - {request.url} Server is shutting down")
+        webserver.logger.error(f"{request.method} - {request.url} - Server has been shut down, no more jobs accepted")
         return jsonify({"job_id": -1, "reason": "shutting down"})
     
-    webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
+    webserver.logger.info(f"{request.method} - {request.url} - Received: {data}")
     webserver.tasks_runner.update_job_id()
     
     return jsonify({"job_id": job_id})
@@ -64,10 +56,10 @@ def state_mean_request():
     job_id = webserver.tasks_runner.add_task(data, 'state_mean')
 
     if job_id is None:
-        webserver.logger.error(f"{request.method} - {request.url} Server is shutting down")
+        webserver.logger.error(f"{request.method} - {request.url} - Server has been shut down, no more jobs accepted")
         return jsonify({"job_id": -1, "reason": "shutting down"})
     
-    webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
+    webserver.logger.info(f"{request.method} - {request.url} - Received: {data}")
     webserver.tasks_runner.update_job_id()
 
     return jsonify({"job_id": job_id})
@@ -79,10 +71,10 @@ def best5_request():
     job_id = webserver.tasks_runner.add_task(data, 'best5')
 
     if job_id is None:
-        webserver.logger.error(f"{request.method} - {request.url} Server is shutting down")
+        webserver.logger.error(f"{request.method} - {request.url} - Server has been shut down, no more jobs accepted")
         return jsonify({"job_id": -1, "reason": "shutting down"})
     
-    webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
+    webserver.logger.info(f"{request.method} - {request.url} - Received: {data}")
     webserver.tasks_runner.update_job_id()
 
     return jsonify({"job_id": job_id})
@@ -90,13 +82,13 @@ def best5_request():
 @webserver.route('/api/worst5', methods=['POST'])
 def worst5_request():
     data = request.json
-    webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
     job_id = webserver.tasks_runner.add_task(data, 'worst5')
 
     if job_id is None:
-        webserver.logger.error(f"{request.method} - {request.url} Server is shutting down")
+        webserver.logger.error(f"{request.method} - {request.url} - Server has been shut down, no more jobs accepted")
         return jsonify({"job_id": -1, "reason": "shutting down"})
     
+    webserver.logger.info(f"{request.method} - {request.url} - Received: {data}")
     webserver.tasks_runner.update_job_id()
 
     return jsonify({"job_id": job_id})
@@ -107,10 +99,10 @@ def global_mean_request():
     job_id = webserver.tasks_runner.add_task(data, 'global_mean')
     
     if job_id is None:
-        webserver.logger.error(f"{request.method} - {request.url} Server is shutting down")
+        webserver.logger.error(f"{request.method} - {request.url} - Server has been shut down, no more jobs accepted")
         return jsonify({"job_id": -1, "reason": "shutting down"})
     
-    webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
+    webserver.logger.info(f"{request.method} - {request.url} - Received: {data}")
     webserver.tasks_runner.update_job_id()
 
     return jsonify({"job_id": job_id})
@@ -121,10 +113,10 @@ def diff_from_mean_request():
     job_id = webserver.tasks_runner.add_task(data, 'diff_from_mean')
     
     if job_id is None:
-        webserver.logger.error(f"{request.method} - {request.url} Server is shutting down")
+        webserver.logger.error(f"{request.method} - {request.url} - Server has been shut down, no more jobs accepted")
         return jsonify({"job_id": -1, "reason": "shutting down"})
     
-    webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
+    webserver.logger.info(f"{request.method} - {request.url} - Received: {data}")
     webserver.tasks_runner.update_job_id()
 
     return jsonify({"job_id": job_id})
@@ -135,10 +127,10 @@ def state_diff_from_mean_request():
     job_id = webserver.tasks_runner.add_task(data, 'state_diff_from_mean')
     
     if job_id is None:
-        webserver.logger.error(f"{request.method} - {request.url} Server is shutting down")
+        webserver.logger.error(f"{request.method} - {request.url} - Server has been shut down, no more jobs accepted")
         return jsonify({"job_id": -1, "reason": "shutting down"})
     
-    webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
+    webserver.logger.info(f"{request.method} - {request.url} - Received: {data}")
     webserver.tasks_runner.update_job_id()
 
     return jsonify({"job_id": job_id})
@@ -149,10 +141,10 @@ def mean_by_category_request():
     job_id = webserver.tasks_runner.add_task(data, 'mean_by_category')
     
     if job_id is None:
-        webserver.logger.error(f"{request.method} - {request.url} Server is shutting down")
+        webserver.logger.error(f"{request.method} - {request.url} - Server has been shut down, no more jobs accepted")
         return jsonify({"job_id": -1, "reason": "shutting down"})
     
-    webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
+    webserver.logger.info(f"{request.method} - {request.url} - Received: {data}")
     webserver.tasks_runner.update_job_id()
 
     return jsonify({"job_id": job_id})
@@ -163,10 +155,10 @@ def state_mean_by_category_request():
     job_id = webserver.tasks_runner.add_task(data, 'state_mean_by_category')
     
     if job_id is None:
-        webserver.logger.error(f"{request.method} - {request.url} Server is shutting down")
+        webserver.logger.error(f"{request.method} - {request.url} - Server has been shut down, no more jobs accepted")
         return jsonify({"job_id": -1, "reason": "shutting down"})
     
-    webserver.logger.info(f"{request.method} - {request.url} Received: {data}")
+    webserver.logger.info(f"{request.method} - {request.url} - Received: {data}")
     webserver.tasks_runner.update_job_id()
 
     return jsonify({"job_id": job_id})
@@ -186,7 +178,7 @@ def graceful_shutdown_request():
 def jobs_request():
     webserver.logger.info(f"{request.method} - {request.url} - Jobs status requested")
     job_status = webserver.tasks_runner.get_jobs()
-    return jsonify({"status": "done", "jobs": [{"job_id_" + str(job_id) : job_status[job_id]} for job_id in job_status]})
+    return jsonify({"status": "done", "data": [{"job_id_" + str(job_id) : job_status[job_id]} for job_id in job_status]})
 
 @webserver.route('/api/num_jobs', methods=['GET'])
 def num_jobs_request():
