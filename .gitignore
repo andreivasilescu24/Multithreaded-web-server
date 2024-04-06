@@ -4,6 +4,7 @@ __pycache__/
 *.so
 
 results/
+README_enunt.md
 
 venv/
 build/
