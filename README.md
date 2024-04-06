@@ -1,9 +1,10 @@
 Nume: Vasilescu Andrei
+
 Grupă: 334 CD
 
 # Tema 1 - Le Stats Sportif
 
-1. Solutie
+## 1. Solutie
 
 Solutia implementata va crea serverul Flask, impreuna cu un DataIngestor si un ThreadPool. Pe masura ce se primesc request-uri pe endpoint-urile din enunt, functiile de
 handle pentru aceste rute vor trimite catre ThreadPool noul task primit, in cazul in care sunt request-uri POST. In cazul in care sunt request-uri GET nu se va face un
@@ -23,7 +24,7 @@ intr-o aplicatie de acest gen. De asemenea, aceasta aplicatie este una utila deo
 mea, am folosit o implementare eficienta, deoarece thread-urile executa in paralel task-urile din coada ceea ce optimizeaza server-ul, dar si pentru ca rezultatele finale sunt stocate
 in fisere, nu in interiorul unor structuri de date din ThreadPool, deoarece acestea pot ajunge la dimensiuni mult prea mari ceea ce ar afecta eficienta in ceea ce priveste memoria.
 
-2. Implementare
+## 2. Implementare
 
 Am implementat in intregime enuntul temei.
 
@@ -58,15 +59,18 @@ serverului, precum si erorile precum adaugarea unui task dupa shutdown.
 Am creat unitteste pentru rezultatele returnate de functiile de statistica din DataIngestor pentru a valida corectitudinea acestora. Acestea insa vor rula pe un CSV de
 dimensiuni mult mai reduse decat cel pe care opereaza server-ul.
 
-* Dificultăți întâmpinate
+#### Dificultăți întâmpinate
+
 - Erori de circular import intre fisiere
 - Asteptarea la infinit a unor thread-uri pentru un job chiar si dupa shutdown
 
-* Lucruri interesante descoperite pe parcurs
+#### Lucruri interesante descoperite pe parcurs
+
 - Functia de "eval" ce poate apela o functie cu numele retinut intr-un string
 
 
-Resurse utilizate
+### Resurse utilizate
+
 - https://ocw.cs.pub.ro/courses/asc/laboratoare/02
 - https://ocw.cs.pub.ro/courses/asc/laboratoare/03
 - https://docs.python.org/3/library/unittest.html#organizing-test-code
@@ -75,5 +79,6 @@ Resurse utilizate
 - https://www.toppr.com/guides/python-guide/references/methods-and-functions/methods/built-in/eval/python-eval/
 - https://docs.python.org/3/library/queue.html
 
-Git
+### Git
+
 https://github.com/andreivasilescu24/Tema1-ASC

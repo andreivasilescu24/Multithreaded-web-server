@@ -76,17 +76,17 @@ class DataIngestor:
     
     def mean_by_category(self, json_req):
         question = json_req['question']
-        vals = self.table[self.table['Question'] == question]
-        grouped_vals = vals.groupby(['LocationDesc', 'StratificationCategory1', 'Stratification1'])['Data_Value'].mean()
-        grouped_vals_dict_str = {str(key): value for key, value in grouped_vals.to_dict().items()}
-        return dict(sorted(grouped_vals_dict_str.items(), key = lambda pair: pair[0][0]))
+        filtered_vals = self.table[self.table['Question'] == question]
+        grouped_vals = filtered_vals.groupby(['LocationDesc', 'StratificationCategory1', 'Stratification1'])['Data_Value'].mean()
+        grouped_vals_dict = {str(key): value for key, value in grouped_vals.to_dict().items()}
+        return dict(sorted(grouped_vals_dict.items(), key = lambda pair: pair[0][0]))
 
 
     def state_mean_by_category(self, json_req):
         question = json_req['question']
         state = json_req['state']
-        vals = self.table[(self.table['Question'] == question) & (self.table['LocationDesc'] == state)]
-        grouped_vals = vals.groupby(['StratificationCategory1', 'Stratification1'])['Data_Value'].mean()
-        grouped_vals_dict_str = {str(key): value for key, value in grouped_vals.to_dict().items()}
-        sorted_grouped_vals = dict(sorted(grouped_vals_dict_str.items(), key = lambda pair: pair[0][0]))
+        filtered_vals = self.table[(self.table['Question'] == question) & (self.table['LocationDesc'] == state)]
+        grouped_vals = filtered_vals.groupby(['StratificationCategory1', 'Stratification1'])['Data_Value'].mean()
+        grouped_vals_dict = {str(key): value for key, value in grouped_vals.to_dict().items()}
+        sorted_grouped_vals = dict(sorted(grouped_vals_dict.items(), key = lambda pair: pair[0][0]))
         return {state: sorted_grouped_vals}
