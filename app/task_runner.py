@@ -20,10 +20,10 @@ class ThreadPool:
             self.num_threads = int(os.environ.get('TP_NUM_OF_THREADS'))
         else:
             self.num_threads = os.cpu_count()
-        
-        self.my_threads = [TaskRunner(self.job_lock, self.task_queue, self.job_status, self.job_json, 
-                                      self.job_type, self.shutdown_event, self.data_ingestor) 
-                                      for _ in range(self.num_threads)]
+
+        self.my_threads = [TaskRunner(self.job_lock, self.task_queue, self.job_status,
+                                      self.job_json, self.job_type, self.shutdown_event,
+                                      self.data_ingestor) for _ in range(self.num_threads)]
         self.job_id_cnt = 1
 
         for thread in self.my_threads:
@@ -44,20 +44,19 @@ class ThreadPool:
                 self.job_type[self.job_id_cnt] = task_type
 
             return self.job_id_cnt
-        else:
-            return None
-    
+        return None
+
     def update_job_id(self):
         self.job_id_cnt += 1
 
     def get_job_status(self, job_id):
         with self.job_lock:
             return self.job_status[job_id]
-    
+
     def get_jobs(self):
         with self.job_lock:
             return self.job_status
-        
+
     def is_shutdown_event_set(self):
         return self.shutdown_event.is_set()
 
@@ -66,10 +65,11 @@ class ThreadPool:
         for thread in self.my_threads:
             thread.join()
         self.logger.info('Server successfully shut down')
-    
+
 
 class TaskRunner(Thread):
-    def __init__(self, lock, task_queue, job_status, job_json, job_type, shutdown_event, data_ingestor):
+    def __init__(self, lock, task_queue, job_status, job_json, job_type,
+                 shutdown_event, data_ingestor):
         Thread.__init__(self)
         self.lock = lock
         self.task_queue = task_queue
@@ -87,10 +87,10 @@ class TaskRunner(Thread):
             except queue.Empty:
                 if self.shutdown_event.is_set():
                     break
-                else:
-                    continue
-            
-            result = eval('self.data_ingestor.' + self.job_type[self.job_id])(self.job_json[self.job_id])
+                continue
+
+            result = eval('self.data_ingestor.' +
+                          self.job_type[self.job_id])(self.job_json[self.job_id])
             with open(f'results/{self.job_id}.json', 'w') as result_file:
                 result_file.write(json.dumps(result))
 

@@ -1,0 +1,53 @@
+2024-04-06 15:55:36 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/857 - Result for job 857 requested
+2024-04-06 15:55:36 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/857 - Result for job 857 requested
+2024-04-06 15:55:36 GMT - INFO: POST - http://127.0.0.1:5000/api/states_mean - Received: {'question': 'Percent of adults aged 18 years and older who have obesity'}
+2024-04-06 15:55:36 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/858 - Result for job 858 requested
+2024-04-06 15:55:37 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/858 - Result for job 858 requested
+2024-04-06 15:55:37 GMT - INFO: POST - http://127.0.0.1:5000/api/states_mean - Received: {'question': 'Percent of adults who achieve at least 150 minutes a week of moderate-intensity aerobic physical activity or 75 minutes a week of vigorous-intensity aerobic activity (or an equivalent combination)'}
+2024-04-06 15:55:37 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/859 - Result for job 859 requested
+2024-04-06 15:55:37 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/859 - Result for job 859 requested
+2024-04-06 15:55:37 GMT - INFO: POST - http://127.0.0.1:5000/api/states_mean - Received: {'question': 'Percent of adults who achieve at least 150 minutes a week of moderate-intensity aerobic physical activity or 75 minutes a week of vigorous-intensity aerobic physical activity and engage in muscle-strengthening activities on 2 or more days a week'}
+2024-04-06 15:55:37 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/860 - Result for job 860 requested
+2024-04-06 15:55:37 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/860 - Result for job 860 requested
+2024-04-06 15:55:37 GMT - INFO: POST - http://127.0.0.1:5000/api/states_mean - Received: {'question': 'Percent of adults who achieve at least 300 minutes a week of moderate-intensity aerobic physical activity or 150 minutes a week of vigorous-intensity aerobic activity (or an equivalent combination)'}
+2024-04-06 15:55:37 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/861 - Result for job 861 requested
+2024-04-06 15:55:37 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/861 - Result for job 861 requested
+2024-04-06 15:55:37 GMT - INFO: POST - http://127.0.0.1:5000/api/states_mean - Received: {'question': 'Percent of adults who engage in muscle-strengthening activities on 2 or more days a week'}
+2024-04-06 15:55:37 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/862 - Result for job 862 requested
+2024-04-06 15:55:38 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/862 - Result for job 862 requested
+2024-04-06 15:55:38 GMT - INFO: POST - http://127.0.0.1:5000/api/states_mean - Received: {'question': 'Percent of adults who engage in no leisure-time physical activity'}
+2024-04-06 15:55:38 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/863 - Result for job 863 requested
+2024-04-06 15:55:38 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/863 - Result for job 863 requested
+2024-04-06 15:55:38 GMT - INFO: POST - http://127.0.0.1:5000/api/states_mean - Received: {'question': 'Percent of adults who report consuming fruit less than one time daily'}
+2024-04-06 15:55:38 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/864 - Result for job 864 requested
+2024-04-06 15:55:38 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/864 - Result for job 864 requested
+2024-04-06 15:55:38 GMT - INFO: POST - http://127.0.0.1:5000/api/states_mean - Received: {'question': 'Percent of adults who report consuming vegetables less than one time daily'}
+2024-04-06 15:55:38 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/865 - Result for job 865 requested
+2024-04-06 15:55:38 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/865 - Result for job 865 requested
+2024-04-06 15:55:38 GMT - INFO: POST - http://127.0.0.1:5000/api/worst5 - Received: {'question': 'Percent of adults aged 18 years and older who have an overweight classification'}
+2024-04-06 15:55:38 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/866 - Result for job 866 requested
+2024-04-06 15:55:39 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/866 - Result for job 866 requested
+2024-04-06 15:55:39 GMT - INFO: POST - http://127.0.0.1:5000/api/worst5 - Received: {'question': 'Percent of adults aged 18 years and older who have obesity'}
+2024-04-06 15:55:39 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/867 - Result for job 867 requested
+2024-04-06 15:55:39 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/867 - Result for job 867 requested
+2024-04-06 15:55:39 GMT - INFO: POST - http://127.0.0.1:5000/api/worst5 - Received: {'question': 'Percent of adults who achieve at least 150 minutes a week of moderate-intensity aerobic physical activity or 75 minutes a week of vigorous-intensity aerobic activity (or an equivalent combination)'}
+2024-04-06 15:55:39 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/868 - Result for job 868 requested
+2024-04-06 15:55:39 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/868 - Result for job 868 requested
+2024-04-06 15:55:39 GMT - INFO: POST - http://127.0.0.1:5000/api/worst5 - Received: {'question': 'Percent of adults who achieve at least 150 minutes a week of moderate-intensity aerobic physical activity or 75 minutes a week of vigorous-intensity aerobic physical activity and engage in muscle-strengthening activities on 2 or more days a week'}
+2024-04-06 15:55:39 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/869 - Result for job 869 requested
+2024-04-06 15:55:39 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/869 - Result for job 869 requested
+2024-04-06 15:55:39 GMT - INFO: POST - http://127.0.0.1:5000/api/worst5 - Received: {'question': 'Percent of adults who achieve at least 300 minutes a week of moderate-intensity aerobic physical activity or 150 minutes a week of vigorous-intensity aerobic activity (or an equivalent combination)'}
+2024-04-06 15:55:39 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/870 - Result for job 870 requested
+2024-04-06 15:55:39 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/870 - Result for job 870 requested
+2024-04-06 15:55:40 GMT - INFO: POST - http://127.0.0.1:5000/api/worst5 - Received: {'question': 'Percent of adults who engage in muscle-strengthening activities on 2 or more days a week'}
+2024-04-06 15:55:40 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/871 - Result for job 871 requested
+2024-04-06 15:55:40 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/871 - Result for job 871 requested
+2024-04-06 15:55:40 GMT - INFO: POST - http://127.0.0.1:5000/api/worst5 - Received: {'question': 'Percent of adults who engage in no leisure-time physical activity'}
+2024-04-06 15:55:40 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/872 - Result for job 872 requested
+2024-04-06 15:55:40 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/872 - Result for job 872 requested
+2024-04-06 15:55:40 GMT - INFO: POST - http://127.0.0.1:5000/api/worst5 - Received: {'question': 'Percent of adults who report consuming fruit less than one time daily'}
+2024-04-06 15:55:40 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/873 - Result for job 873 requested
+2024-04-06 15:55:40 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/873 - Result for job 873 requested
+2024-04-06 15:55:40 GMT - INFO: POST - http://127.0.0.1:5000/api/worst5 - Received: {'question': 'Percent of adults who report consuming vegetables less than one time daily'}
+2024-04-06 15:55:40 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/874 - Result for job 874 requested
+2024-04-06 15:55:40 GMT - INFO: GET - http://127.0.0.1:5000/api/get_results/874 - Result for job 874 requested
