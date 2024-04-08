@@ -4,7 +4,6 @@ import time
 from flask import Flask
 from app.data_ingestor import DataIngestor
 from app.task_runner import ThreadPool
-from app import routes
 
 webserver = Flask(__name__)
 
@@ -25,3 +24,5 @@ webserver.logger.addHandler(logger_handler)
 
 webserver.logger.info('Started webserver')
 webserver.tasks_runner = ThreadPool(webserver.data_ingestor, webserver.logger)
+
+from app import routes

@@ -1,0 +1,95 @@
+commit 0ea9185fe224d2bf814b30eb8d52f4bd0866b6a3
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Mon Apr 8 08:57:37 2024 +0300
+
+    pylint
+
+commit 51ba14394bb93bd43aab01eaef9b19e983be893a
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Sat Apr 6 14:34:37 2024 +0300
+
+    Removed initial readme
+
+commit 231a96a15f854cb25fe118f2055a4eb43dedac37
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Sat Apr 6 14:32:49 2024 +0300
+
+    final version
+
+commit ae4c00b85bb9ebac85745d3513d5d133c1984caf
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Sat Apr 6 14:30:19 2024 +0300
+
+    final version
+
+commit 690965d0584d1c84f81d6ba77554fa91e8af4214
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Sat Apr 6 14:18:51 2024 +0300
+
+    final version
+
+commit 703552a5805c98a9453c4648ef027d4be8827a05
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Sat Apr 6 13:53:56 2024 +0300
+
+    Added README
+
+commit ac13c5b25008acad5e1fb35dff15d6109a236254
+Author: Andrei <vasilescuandrei24@gmail.com>
+Date:   Thu Apr 4 17:47:15 2024 +0300
+
+    added logging
+
+commit 1574ff5fb7b803bb4ab7258c42b75a8653d84b7d
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Tue Apr 2 23:05:35 2024 +0300
+
+    data management done.need to fix busy waiting on threads
+
+commit c3ddff71cd1edf8a8ba68a043e823d490c31cf49
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Mon Apr 1 23:09:43 2024 +0300
+
+    added more handlers for requests, need to fix 'by_category' handlers
+
+commit fa03f3102cd078766ff9eeb7bee5620b51078f03
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Sun Mar 31 23:47:40 2024 +0300
+
+    added states_mean functionality
+
+commit 87ce8e58aabe60a0b7056f464b4251fd07e89b59
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Sat Mar 30 20:20:42 2024 +0200
+
+    added the task execution logic
+
+commit 0e26e012fc51cfef899d1ce60fbc0e27009dc858
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Fri Mar 29 01:11:35 2024 +0200
+
+    implemented base functionalities for request handling
+
+commit f5133bdc1daf903dd3d16789f07019018d2c55e2
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Thu Mar 28 13:05:08 2024 +0200
+
+    started thread pool impl
+
+commit 0c3c3445bcc03dbbdf778d584d8c20428027361d
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Thu Mar 28 00:38:16 2024 +0200
+
+    added read csv
+
+commit 907b50e8d131743e1817b4f330acefd73b0af99f
+Author: Andrei Vasilescu <vasilescuandrei24@gmail.com>
+Date:   Wed Mar 27 21:57:16 2024 +0200
+
+    updated skelet
+
+commit a8797c1c2bc6fbbe363066a560a3881b808f50e1
+Author: Andrei <vasilescuandrei24@gmail.com>
+Date:   Wed Mar 27 16:01:50 2024 +0200
+
+    skelet
