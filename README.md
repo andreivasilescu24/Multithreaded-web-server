@@ -1,75 +1,30 @@
-Nume: Vasilescu Andrei
+# Statistical Analysis Web Server
 
-Grupă: 334 CD
+## 1. Solution
 
-# Tema 1 - Le Stats Sportif
+The implemented solution will create a Flask server, along with a `DataIngestor` and a `ThreadPool`. As requests are received on the endpoints defined in the assignment, the corresponding handler functions will send the incoming task to the `ThreadPool` if the requests are POST. In the case of GET requests, no new job ID will be created, and no job will be added to the queue, since the request either requires a result from the current moment (e.g., status of the jobs in the `ThreadPool`, the number of jobs in "running," or the result of a job), or the server needs to be shut down, which means the `ThreadPool` will no longer accept new tasks. Thus, only requests that require statistical calculations will generate a job ID and add a task to the queue, allowing us to retrieve job statuses or the number of running jobs, even after the server shuts down, as the `ThreadPool` will continue to execute all remaining tasks in the queue.
 
-## 1. Solutie
+Upon receiving a new job, the server will return a JSON response with the new job ID and increment the job ID for the next task. The `ThreadPool` will add the task to its queue, from where a thread can access and execute it, writing the result to the corresponding JSON file named after the job that was executed. This file-based approach for storing results was used to avoid keeping large amounts of data in structures like dictionaries/lists and to make it easier to access the results by reading the content of the file when a request is received to retrieve the result of a particular job.
 
-Solutia implementata va crea serverul Flask, impreuna cu un DataIngestor si un ThreadPool. Pe masura ce se primesc request-uri pe endpoint-urile din enunt, functiile de
-handle pentru aceste rute vor trimite catre ThreadPool noul task primit, in cazul in care sunt request-uri POST. In cazul in care sunt request-uri GET nu se va face un
-nou job ID si nici nu se va pune in coada un job deoarece fie este nevoie de un rezultat din momentul respectiv cum ar fi statusul job-urilor din ThreadPool, numarul
-de joburi in "running" sau rezultatul unui job este nevoie de inchiderea server-ului si implicit a ThreadPool-ului care nu va mai accepta niciun fel de task. Astfel, 
-doar request-urile unde se doreste calcularea unei statistici vor primi un job ID si vor adauga un task in coada deoarece se doreste sa avem functionalitatea de a afla 
-status-urile job-urilor sau numarul de joburi in running si dupa ce s-a dat shutdown la server fiindca ThreadPool-ul va continua sa ruleze toate task-urile care au ramas 
-in coada si dupa shutdown. 
+I consider this assignment useful because it helped consolidate concepts related to multithreaded servers, as well as synchronization mechanisms and their importance in such applications. Additionally, this application is valuable because it provides statistics for large datasets in a reasonable time. I believe the solution is efficient, as threads run tasks in parallel, optimizing the server. Furthermore, the results are stored in files instead of in data structures within the `ThreadPool`, preventing excessive memory usage that could affect efficiency.
 
-In urma primirii unui nou job, se va intoarce un JSON cu job ID-ul noului task si se va incrementa job ID-ul pentru un urmator task. ThreadPool-ul il va adauga in coada sa 
-de unde un thread il va putea accesa si executa scriind rezultatul in fisierul JSON cu numele corespunzator job-ului rulat. Am utilizat aceasta solutie de scriere in 
-fisiere a rezultatelor pentru a nu stoca cantitati mari de date in structuri de date precum dictionare/liste si pentru a fi usor de accesat (prin citirea continutului fisierului) 
-in momentul in care se primeste un request ce doreste sa primeasca rezultatul unui anume job.
+## 2. Implementation
 
-Consider ca tema este una utila deoarece prin ea am consolidat mai bine conceptele din spatele unui server multithreaded, dar si mecanismele de sincronizare si importanta acestora 
-intr-o aplicatie de acest gen. De asemenea, aceasta aplicatie este una utila deoarece ofera intr-un timp rezonabil statistici pentru un set de date de dimensiuni foarte mari. In opinia 
-mea, am folosit o implementare eficienta, deoarece thread-urile executa in paralel task-urile din coada ceea ce optimizeaza server-ul, dar si pentru ca rezultatele finale sunt stocate
-in fisere, nu in interiorul unor structuri de date din ThreadPool, deoarece acestea pot ajunge la dimensiuni mult prea mari ceea ce ar afecta eficienta in ceea ce priveste memoria.
+I fully implemented the assignment requirements.
 
-## 2. Implementare
+In the `ThreadPool`, I keep information about each job that enters the execution queue, using three dictionaries. Each job ID (the key) has associated values such as its status, the JSON content from the request (which will be passed to the statistical functions), and the job type ("states_mean", "global_mean", etc.) to allow each thread to know which function to call to compute the result. In addition to the job queue and these dictionaries, the `ThreadPool` also maintains a list of created threads, an event for server shutdown, and a lock to prevent concurrent access to dictionaries for specific jobs (for example, when a GET request for job status is received, the lock is used on the dictionary to ensure that the status is not updated by another thread while being accessed). All these data structures and synchronization mechanisms are passed as parameters to each thread, enabling them to use them.
 
-Am implementat in intregime enuntul temei.
+When a shutdown is requested, the event is set, notifying all threads that the server is about to close and that they should complete their tasks as quickly as possible once no jobs remain in the queue. The `shutdown` function in the `ThreadPool` will wait for all threads to finish before closing.
 
-In ThreadPool voi retine informatii despre fiecare job care intra in coada de executie, avand trei dictionare in care fiecare job ID (cheia) are asociat ca valoare statusul, JSON-ul 
-cu care a venit request-ul pentru a il putea da mai departe catre functiile de statistica, dar si tipul de job ("states_mean", "global_mean", etc.) pentru ca fiecare thread sa stie ce
-functie sa apeleze pentru a obtine rezultatul. De asemenea, pe langa coada de job-uri si dictionarele acestea, ThreadPool-ul mai are o lista cu thread-urile create, un event pentru
-momentul cand se da shutdown si un lock pentru a evita accesul concurent la dictionare pe un job anume (spre exemplu se primeste un request de GET pentru a afla statusul job-urilor asa
-ca voi folosi lock-ul pe dicitionar, pentru a obtine status-ul din momentul respectiv, deoarece exista posibilitatea ca intre timp un thread sa termine executia unui job si sa updateze
-statusul la "done" ceea ce va afecta rezultatul request-ului, asa ca thread-ul va astepta pana va putea lua Lock-ul ca sa schimbe statusul). Toate aceste structuri de date, dar si
-mecanisme de sincronizare sunt date ca parametru fiecarui thread pentru ca acestea sa se poata folosi de ele.
+Each thread in the `ThreadPool` will continue running until a shutdown is requested and the job queue is empty. A thread tries to pick a job from the queue and execute it, but it will not block for more than 2 seconds. If the queue is empty, it will check if a shutdown has been requested, and if so, the thread will close. I created this mechanism because there is a case where the server starts and immediately requests a shutdown. If all threads were blocked waiting for a task, they would run indefinitely even after the server has closed, and no new tasks will be added. When a thread successfully retrieves a task, it calls the appropriate statistical function based on the job type and writes the result to a JSON file. I used `eval` to dynamically call the corresponding function based on the job type, which is stored in the dictionary in the `ThreadPool` and updated each time a new task is added. After writing the result to the file, the thread updates the status of the job ID to "done" using a lock on the shared status dictionary.
 
-In momentul in care se va cere shutdown-ul se va seta Eventul si astfel toate thread-urile vor putea fi "notificate" ca urmeaza inchiderea si ca ar trebui sa isi termine rularea cat
-mai repede, dupa ce nu mai exista job-uri de executat in coada. De asemenea, functia de shutdown din ThreadPool va astepta terminarea tuturor thread-urilor inainte de inchidere.
+The functions that calculate the results and operate on the received CSV (e.g., "states_mean," "mean_by_category," etc.) are located in the `DataIngestor` to easily access the CSV table. The results of operations on the CSV are obtained using operations provided by the `pandas` library, as it is easy to use and efficient for large datasets like the one used in this assignment. The statistical calculation functions have the same names as the request types they handle, which allows them to be called dynamically using `eval` from within the threads.
 
-Fiecare thread din ThreadPool va rula pana cand se va cere shutdown-ul server-ului si coada de job-uri va fi goala, astfel fiecare thread incearca sa preia din coada un job
-pentru a il rula, insa nu se blocheaza mai mult de 2 secunde, iar daca coada e goala va verifica daca s-a cerut shutdown-ul, in caz afirmativ inchizandu-se. Am creat acest
-mecanism deoarece exista si cazul in care server-ul se porneste si se cere un shutdown imediat, astfel daca toate thread-urile erau blocate in incercarea de a prelua un task,
-acestea rulau la infinit, chiar daca server-ul s-a inchis si nu vor mai intra alte task-uri. Cand un thread reuseste sa preia un task acesta va apela functia de calculare de
-statistici corespunzatoare job-ului si va scrie rezultatul in fisierul JSON. Am folosit "eval" pentru a apela functiile corespunzatoare tipului de cerere al fiecarui job ID
-ce este retinut in dictionarul creat in ThreadPool si care este updatat de fiecare data cand se introduce un nou task. Dupa ce va fi scris rezultatul statisticii in fisier,
-thread-ul va updata statusul pentru job ID-ul rulat la "done" cu ajutorul unui Lock pe dictionarul cu statusuri ce este partajat de toate thread-urile.
+Additionally, I created a logging function to monitor server activity. All requests made to the server are logged in the "webserver.log" file, along with a timestamp, the endpoint of the request, and a descriptive message for the action performed. The server's startup and shutdown are also logged, as well as errors such as attempts to add tasks after shutdown.
 
-In ceea ce priveste functiile care calculeaza rezultatele si opereaza pe CSV-ul primit ("states_mean", "mean_by_category", etc.) acestea se afla in DataIngestor pentru a
-putea accesa cu usurinta tabelul CSV citit. Rezultatele operatiilor pe CSV sunt obtinute cu ajutorul operatiilor puse la dispoztie de "pandas" deoarece sunt usor de folosit,
-iar pentru cantitati mari de date cum sunt in CSV-ul utilizat in tema, consider ca este mai eficient sa folosim o biblioteca dedicata acestor tipuri de operatii. De asemenea,
-functiile de calcul a statisticilor din acest fisier au acelasi nume cu tipul de request pe care il satisfac pentru a putea fi apelate cu "eval" din thread-uri.
+I created unit tests for the results returned by the statistical functions in `DataIngestor` to validate their correctness. However, these tests run on a much smaller CSV than the one used by the server.
 
-De asemenea, am creat si functia de logging pentru a monitoriza activitatea de pe server, astfel in fisierul "webserver.log" se vor gasi toate request-urile de la rularea
-server-ului, impreuna cu un timestamp, cu endpoint-ul catre care s-a executat request-ul dar si un mesaj sugestiv pentru actiunea facuta. Se vor loga si startul si inchiderea
-serverului, precum si erorile precum adaugarea unui task dupa shutdown.
-
-Am creat unitteste pentru rezultatele returnate de functiile de statistica din DataIngestor pentru a valida corectitudinea acestora. Acestea insa vor rula pe un CSV de
-dimensiuni mult mai reduse decat cel pe care opereaza server-ul.
-
-#### Dificultăți întâmpinate
-
-- Erori de circular import intre fisiere
-- Asteptarea la infinit a unor thread-uri pentru un job chiar si dupa shutdown
-
-#### Lucruri interesante descoperite pe parcurs
-
-- Functia de "eval" ce poate apela o functie cu numele retinut intr-un string
-
-
-### Resurse utilizate
+### Resources Used
 
 - https://ocw.cs.pub.ro/courses/asc/laboratoare/02
 - https://ocw.cs.pub.ro/courses/asc/laboratoare/03
@@ -78,7 +33,3 @@ dimensiuni mult mai reduse decat cel pe care opereaza server-ul.
 - https://stackoverflow.com/questions/24722212/python-cant-find-module-in-the-same-folder
 - https://www.toppr.com/guides/python-guide/references/methods-and-functions/methods/built-in/eval/python-eval/
 - https://docs.python.org/3/library/queue.html
-
-### Git
-
-https://github.com/andreivasilescu24/Tema1-ASC
